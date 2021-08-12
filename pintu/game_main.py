@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 import os, sys
 import random, pygame
 from pygame.locals import *
@@ -9,6 +9,7 @@ White = (255, 255, 255)
 Red = (255, 0, 0)
 Green = (0, 255, 0)
 Blue = (0, 0, 255)
+
 
 class Window(object):
 
@@ -120,6 +121,7 @@ class Window(object):
                         return True
                     elif self.is_pos_in_rect(event.pos, e_rect):
                         stop_game()
+
     @staticmethod
     def is_pos_in_rect(pos, rect):
         left, top = pos
@@ -127,9 +129,11 @@ class Window(object):
             return True
         return False
 
+
 def stop_game():
     pygame.quit()
     sys.exit()
+
 
 def event_loop(board):
     cell_h = board.height
@@ -151,30 +155,33 @@ def event_loop(board):
             elif index == board.i_blank - board.columns:
                 board.cell_move(K_DOWN)
 
-def board_image_get(path):
 
+def board_image_get(path):
     files = [f for f in os.listdir(path) if f.endswith('.jpg') and not f == 'bg2.jpg']
     if files:
-        rand_num = random.randint(0, len(files)-1)
+        rand_num = random.randint(0, len(files) - 1)
         return os.path.join(path, files[rand_num])
     return None
+
 
 def bg_music_load(bg_music, volume=0.2):
     pygame.mixer.music.load(bg_music)
     pygame.mixer.music.set_volume(volume)
 
+
 def bg_music_play():
     pygame.mixer.music.play(-1)
+
 
 def bg_music_pause():
     pygame.mixer.music.pause()
 
+
 def bg_music_stop():
     pygame.mixer.music.stop()
 
+
 def game_board_run(screen):
-
-
     image_file = board_image_get(IMAGE_PATH)
     if not image_file:
         print('can not load bg image')
@@ -194,7 +201,6 @@ def game_board_run(screen):
 
 
 def main():
-
     pygame.init()
     pygame.mixer.init()
     main_clock = pygame.time.Clock()
